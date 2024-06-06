@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManagerScript : MonoBehaviour
 {
     public GameObject block;
+    public GameObject goal;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,7 +15,7 @@ public class GameManagerScript : MonoBehaviour
                 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
                 {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
                 {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,1,1,1,0,0,0,0,2,0,0,0,0,0,0,1},
                 {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
                 {1,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,1},
                 {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -38,6 +40,11 @@ public class GameManagerScript : MonoBehaviour
                 {
                     Instantiate(block, position, Quaternion.identity);
                 }
+                //ゴール位置設定
+                if (map[y, x] == 2)
+                {
+                    goal.transform.position = position;
+                }
             }
         }
     }
@@ -45,6 +52,13 @@ public class GameManagerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //ゲームクリアでスペースキーでタイトルへ移行
+        if(GoalScript.isGameClear == true)
+        {
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                SceneManager.LoadScene("TitleScene");
+            }
+        }
     }
 }
