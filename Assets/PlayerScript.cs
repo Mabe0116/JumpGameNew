@@ -76,7 +76,7 @@ public class PlayerScript : MonoBehaviour
         else
         {
             v.x = 0;
-            animator.SetBool("Walk", false);
+            animator.SetBool("Walk", false); 
         }
 
         if(UnityEngine.Input.GetButton("Jump") || UnityEngine.Input.GetKey(KeyCode.Space))
