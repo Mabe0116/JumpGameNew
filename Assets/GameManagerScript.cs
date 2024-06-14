@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManagerScript : MonoBehaviour
 {
     public GameObject block;
     public GameObject goal;
+    public GameObject Coin;
+    public static  int score = 0;
+    public TextMeshProUGUI scoreText;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,18 +18,18 @@ public class GameManagerScript : MonoBehaviour
             {
                 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
                 {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,1},
                 {1,0,0,0,0,1,1,1,0,0,0,0,2,0,0,0,0,0,0,1},
                 {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
                 {1,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,1},
                 {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-                {1,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,3,0,1},
                 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
             };
 
-
-
+        score = 0;
+       
         Vector3 position = Vector3.zero;
 
         for (int y = 0; y < map.GetLength(0); y++)
@@ -45,8 +49,16 @@ public class GameManagerScript : MonoBehaviour
                 {
                     goal.transform.position = position;
                 }
+
+                //コイン
+                if (map[y, x] == 3)
+                {
+                    Instantiate(Coin, position, Quaternion.identity);
+                }
+
             }
         }
+
     }
 
     // Update is called once per frame
@@ -55,10 +67,12 @@ public class GameManagerScript : MonoBehaviour
         //ゲームクリアでスペースキーでタイトルへ移行
         if(GoalScript.isGameClear == true)
         {
-            if(Input.GetKeyDown(KeyCode.Space))
+            if(Input.GetKeyDown(KeyCode.Space) || UnityEngine.Input.GetButton("Jump"))
             {
                 SceneManager.LoadScene("TitleScene");
             }
         }
+
+        scoreText.text = "SCORE " + score;
     }
 }
