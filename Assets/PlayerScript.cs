@@ -6,6 +6,7 @@ public class PlayerScript : MonoBehaviour
 {
     public Rigidbody rb;
     public bool isBlock = true;
+    public GameObject bombParticle;
     private AudioSource audioSource;
     private Animator animator;
 
@@ -21,7 +22,7 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
         const float moveSpeed  = 1.0f;
-        const float moveJump = 10.0f;
+        const float moveJump = 4.0f;
 
         Vector3 rayPosition = transform.position + new Vector3(0.0f, 0.8f, 0.0f);
 
@@ -96,6 +97,7 @@ public class PlayerScript : MonoBehaviour
             other.gameObject.SetActive(false);
             audioSource.Play();
             GameManagerScript.score += 1;
+            Instantiate(bombParticle,transform.position, Quaternion.identity);
         }
     }
 }
