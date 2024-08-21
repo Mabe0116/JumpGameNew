@@ -22,7 +22,7 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
         const float moveSpeed  = 1.0f;
-        const float moveJump = 4.0f;
+        const float moveJump = 8.0f;
 
         Vector3 rayPosition = transform.position + new Vector3(0.0f, 0.8f, 0.0f);
 
